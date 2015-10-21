@@ -68,8 +68,6 @@ var time2 = 0;
 var timeStepID;
 
 function source(x, t){
-	return Math.exp(-(t - 30.0)*(t - 30.0) / 100.0);
-	
 	// standing waves with dielectric at 100 -> 150 with index=16
 	return Math.sin((t-10.0)*0.2)*0.1;
 }
