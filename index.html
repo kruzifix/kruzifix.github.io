@@ -61,7 +61,7 @@ var maxTime = 350;
 var time = 0;
 
 var dt = 15.0
-var dx = can.width / (SIZE-1);
+var dx = can.width / (SIZE-2);
 var dy = can.height * 0.5;
 var dy2 = can.height / (maxTime / dt);
 var time2 = 0;
@@ -101,7 +101,6 @@ function runTimeStep(){
 	ctx.beginPath();
 	ctx.moveTo(0, dy);
 	ctx.lineTo(can.width, dy);
-	ctx.closePath();
 	ctx.stroke();
 	// dielectric region
 	ctx.fillStyle = '#bfa';
@@ -111,7 +110,6 @@ function runTimeStep(){
 	ctx.beginPath();
 	ctx.moveTo(dx*49, 0);
 	ctx.lineTo(dx*49, can2.height);
-	ctx.closePath();
 	ctx.stroke();
 	
 	ctx.fillStyle = 'black';
@@ -120,32 +118,29 @@ function runTimeStep(){
 	// plot electric field
 	ctx.strokeStyle = 'red';
 	ctx.beginPath();
-	for(var i = 0; i < SIZE - 1; i++){
-		ctx.moveTo(dx * i, dy - ez[i]*0.9 * dy);
-		ctx.lineTo(dx * (i + 1), dy - ez[i + 1]*0.9 * dy);
+    ctx.moveTo(0, dy - ez[0]*0.9 * dy);
+	for(var i = 1; i < SIZE; i++){
+		ctx.lineTo(dx * i, dy - ez[i]*0.9 * dy);
 	}
-	ctx.closePath();
 	ctx.stroke();
 	
 	//waterfall
 	if (time > 0 && time % dt == 0 && time < maxTime){
 		ctx2.strokeStyle = 'black';
 		ctx2.beginPath();
-		for(var i = 0; i < SIZE - 1; i++){
-			ctx2.moveTo(dx * (i), -ez[i] * dy2 + time/dt * dy2);
-			ctx2.lineTo(dx * (i+1), -ez[i + 1] * dy2 + time/dt * dy2);
-		}
-		ctx2.closePath();
+        ctx2.moveTo(0, -ez[0] * dy2 + time/dt * dy2);
+		for(var i = 1; i < SIZE; i++){
+			ctx2.lineTo(dx * i, -ez[i] * dy2 + time/dt * dy2);
+		}	
 		ctx2.stroke();
 	}
 	// plot magnetic field
 	ctx.strokeStyle = 'blue';
 	ctx.beginPath();
-	for(var i = 0; i < SIZE - 1; i++){
-		ctx.moveTo(dx * i, dy - hy[i]*100.0 * dy);
-		ctx.lineTo(dx * (i + 1), dy - hy[i + 1]*100.0 * dy);
+    ctx.moveTo(0, dy - hy[0]*100.0 * dy);
+	for(var i = 1; i < SIZE; i++){
+		ctx.lineTo(dx * i, dy - hy[i]*100.0 * dy);
 	}
-	ctx.closePath();
 	ctx.stroke();
 	
 	time++;
@@ -156,7 +151,6 @@ function clearWaterfall(){
 	ctx2.beginPath();
 	ctx2.moveTo(dx*49, 0);
 	ctx2.lineTo(dx*49, can2.height);
-	ctx2.closePath();
 	ctx2.strokeStyle = '#ccc';
 	ctx2.stroke();
 	ctx2.fillStyle = '#bfa';
