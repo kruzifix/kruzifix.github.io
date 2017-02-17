@@ -7,7 +7,7 @@ body {
 
 #wrapper {
     text-align: center;
-    width: 400px;
+    width: 800px;
     margin: 50px auto;
 }
 
@@ -20,6 +20,7 @@ ul {
     padding: 0;
     margin: 0;
     margin-top: 40px;
+    clear: both;
 }
 
 a {
@@ -28,24 +29,50 @@ a {
 
 }
 
-ul a {
-    color: white;
-    text-decoration: none;
-}
-
 li {
+    display: inline-block;
     font-size: 150%;
-    padding: 0;
-    margin: 0;
     list-style-type: none;
     background-color: #999;
-    margin: 5px auto;
-    padding: 20px;
+    margin: 10px;
+    padding: 0;
+
+}
+
+.preview-box {
+    margin: 0;
+    padding: 0;
+
+    color: white;
+
+    background-color: #999;
+    width: 210px;
+
     transition: color 0.2s ease-in-out;
     transition: background-color 0.2s ease-in-out;
 }
 
-ul a :hover {
-    background-color: #ddd;
+.preview-box :hover {
     color: black;
+    background-color: #aaa;
+}
+
+.preview-box a {
+    text-decoration: none;
+}
+
+.preview-link {
+    color: white;
+    padding: 10px;
+}
+
+.preview-img {
+    width: 100%;
+    height: 100%;
+}
+
+.preview-box img {
+    width: 100%;
+    margin: 0;
+    padding: 0;
 }
