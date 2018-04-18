@@ -461,6 +461,15 @@ function drawBoard(ox, oy, w) {
         }
     }
 
+    fill(0, 200, 0);
+    noStroke();
+    let pad = 10;
+    if (turnState.state == TURN_STATE.MEEPLE_SELECTED) {
+        for (let p of turnState.possibleMoves) {
+            rect(ox + p.x * ts + pad, oy + p.y * ts + pad, ts - pad * 2, ts - pad * 2);
+        }
+    }
+
     let tq = ts * 0.25;
     for (let b of bases) {
         let x = ox + b.x * ts;
@@ -477,15 +486,6 @@ function drawBoard(ox, oy, w) {
 
         fill(b.col);
         drawMeeple(x + tq, y + tq * 1.5, tq * 2);
-    }
-
-    fill(0, 200, 0);
-    noStroke();
-    let pad = 10;
-    if (turnState.state == TURN_STATE.MEEPLE_SELECTED) {
-        for (let p of turnState.possibleMoves) {
-            rect(ox + p.x * ts + pad, oy + p.y * ts + pad, ts - pad * 2, ts - pad * 2);
-        }
     }
 
     strokeWeight(3);
