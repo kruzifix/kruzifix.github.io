@@ -15,6 +15,7 @@ let cards;
 let cardsPos;
 let bases;
 let capturedMeeples;
+let lastMove = undefined;
 
 function onBoard(x, y) {
     return x >= 0 && y >= 0 && x < n && y < n;
@@ -60,7 +61,8 @@ function setup() {
             { x: 0, y: -1 },
             { x: 0, y: 1 },
             { x: -1, y: -1 },
-            { x: 1, y: 1 }]
+            { x: 1, y: 1 }
+        ]
     }, {
         name: 'mantis',
         moves: [
@@ -210,6 +212,12 @@ function moveMeeple(movePos) {
 
     board.arr[movePos.x][movePos.y] = oldCell;
     board.arr[oldx][oldy] = undefined;
+
+    lastMove = {
+        from: { x: oldx, y: oldy },
+        to: { x: movePos.x, y: movePos.y },
+        team: turnState.team
+    };
 
     useCard();
 
@@ -459,6 +467,15 @@ function drawBoard(ox, oy, w) {
             fill((x + y) % 2 == 0 ? color(220) : color(180));
             rect(ox + x * ts, oy + y * ts, ts, ts);
         }
+    }
+
+    if (lastMove) {
+        let col = lastMove.team == 'Red' ? color(250, 200, 200) : color(150, 200, 250);
+        fill(col);
+        let pd = 10;
+        rect(ox + lastMove.from.x * ts + pd, oy + lastMove.from.y * ts + pd, ts - pd * 2, ts - pd * 2);
+        //rect(ox + lastMove.to.x * ts + pd, oy + lastMove.to.y * ts + pd, ts - pd * 2, ts - pd * 2);
+        ellipse(ox + (lastMove.to.x + 0.5) * ts, oy + (lastMove.to.y + 0.5) * ts, ts - pd, ts - pd);
     }
 
     fill(0, 200, 0);
